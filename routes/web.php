@@ -36,7 +36,7 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])->group(function () {
+
 
     /*
     |--------------------------------------------------------------------------
@@ -127,4 +127,4 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/settings', [SettingController::class, 'update'])
         ->name('settings.update');
-});
+
