@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Support\Facades\URL;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
@@ -21,5 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
           View::share('settings', Setting::first());
+          URL::forceRootUrl(config('app.url'));
     }
 }
