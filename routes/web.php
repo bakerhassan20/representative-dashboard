@@ -25,7 +25,9 @@ require __DIR__.'/auth.php';
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
 });
 
 /*
