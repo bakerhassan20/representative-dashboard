@@ -109,10 +109,14 @@
             <span class="label">المبلغ المتبقي:</span>
             {{ number_format($payment->installment->amount - $paid, 2) }} ر.س
         </div>
+        <div class="row">
+            <span class="label">المبلغ المتبقي من الاجمالي:</span>
+            {{ number_format($payment->installment->contract->total_amount - $paid, 2) }} ر.س
+        </div>
 
         <div class="row">
             <span class="label">تاريخ الدفع:</span>
-            {{ $payment->payment_date }}
+            {{ $payment->created_at->format('Y-m-d') }}
         </div>
 
         <div class="row">
