@@ -69,15 +69,27 @@ class ClientController extends Controller
             ->with('success', 'تم تعديل العميل بنجاح');
     }
 
-    public function destroy(Client $client)
-    {
-        $client->contract()->delete();
-        $client->payment()->delete();
-        $client->installment()->delete();
-        $client->delete();
+        public function destroy(Client $client)
+        {
+            foreach ($client->contracts as $contract) {
 
-        return back()->with('success', 'Client deleted successfully');
-    }
+                foreach ($contract->installments as $installment) {
+
+                    $installment->payments()->delete();
+
+                    $installment->delete();
+                }
+
+                $contract->delete();
+            }
+
+            $client->delete();
+
+            return back()->with(
+                'success',
+                'تم حذف العميل وجميع بياناته'
+            );
+        }
 
     // Restore deleted client
     public function restore($id)
