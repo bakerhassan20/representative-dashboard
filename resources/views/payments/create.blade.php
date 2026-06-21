@@ -35,7 +35,7 @@
 
                     <option value="{{ $contract->id }}">
 
-                        {{ $contract->client->name }}
+                        {{ $contract->client->name ?? 'N/A' }}
                         -
                         {{ $contract->car_name }}
 

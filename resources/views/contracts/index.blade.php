@@ -47,7 +47,7 @@
                 <td>{{ $loop->iteration }}</td>
 
                 <td>
-                    {{ $contract->client->name }}
+                    {{ $contract->client->name ?? 'N/A' }}
                 </td>
 
                 <td>

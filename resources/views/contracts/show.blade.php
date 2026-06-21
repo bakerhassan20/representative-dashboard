@@ -7,7 +7,7 @@
 <div class="page-header">
     <div>
         <h4 class="page-title">
-            {{ $contract->client->name }}
+            {{ $contract->client->name ?? 'N/A' }}
         </h4>
 
         <p class="page-subtitle">

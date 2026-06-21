@@ -83,7 +83,7 @@
 
         <div class="row">
             <span class="label">اسم العميل:</span>
-            {{ $payment->installment->contract->client->name }}
+            {{ $payment->installment->contract->client->name ?? 'N/A' }}
         </div>
 
         <div class="row">

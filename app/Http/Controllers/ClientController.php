@@ -71,6 +71,9 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
+        $client->contract()->delete();
+        $client->payment()->delete();
+        $client->installment()->delete();
         $client->delete();
 
         return back()->with('success', 'Client deleted successfully');

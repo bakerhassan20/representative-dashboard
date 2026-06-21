@@ -37,7 +37,7 @@
 
                         <option value="{{ $installment->id }}" {{ old('installment_id', $payment->installment_id) == $installment->id ? 'selected' : '' }}>
 
-                            {{ $installment->contract->client->name }}
+                            {{ $installment->contract->client->name  ?? 'N/A'}}
                             -
                             {{ $installment->contract->car_name }}
                             -

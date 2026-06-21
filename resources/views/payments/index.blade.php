@@ -66,7 +66,7 @@
                             <td>{{ $loop->iteration }}</td>
 
                             <td>
-                                {{ $payment->installment->contract->client->name }}
+                                {{ $payment->installment->contract->client->name ?? 'N/A'}}
                             </td>
 
                             <td>

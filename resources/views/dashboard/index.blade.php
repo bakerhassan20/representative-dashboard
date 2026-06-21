@@ -251,7 +251,7 @@
                                 <tr>
 
                                     <td>
-                                        {{ $installment->contract->client->name }}
+                                        {{ $installment->contract->client->name ?? 'N/A' }}
                                     </td>
 
                                     <td>
@@ -430,7 +430,7 @@
                                             </div>
 
                                             <span>
-                                                {{ $payment->installment->contract->client->name }}
+                                                {{ $payment->installment->contract->client->name ?? 'N/A' }}
                                             </span>
                                         </div>
                                     </td>
