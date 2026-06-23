@@ -6,6 +6,9 @@ use App\Models\Client;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\ClientsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClientController extends Controller
 {
@@ -25,6 +28,8 @@ class ClientController extends Controller
     {
         return view('clients.create');
     }
+
+
 
     public function store(ClientRequest $request)
     {
@@ -106,4 +111,21 @@ class ClientController extends Controller
 
         return view('clients.trashed', compact('clients'));
     }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new ClientsExport(),
+            'clients.xlsx'
+        );
+    }
+
+   public function print()
+{
+    $clients = Client::with('contracts')->get();
+    return view('clients.print', compact('clients'));
+}
+
+
+
 }

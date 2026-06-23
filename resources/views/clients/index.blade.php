@@ -16,6 +16,19 @@
     </a>
     @endcan
 </div>
+
+<div class="d-flex gap-2 mb-5">
+ 
+    <a href="{{ route('clients.export.excel') }}" class="btn btn-success">
+        <i class="bi bi-file-earmark-excel"></i>
+        تصدير Excel
+    </a>
+
+ <a href="{{ route('clients.print') }}" target="_blank" class="btn btn-secondary">
+    <i class="bi bi-printer"></i>
+    طباعة
+</a>
+</div>
 @can('view clients')
 
 {{-- Search --}}
@@ -47,9 +60,9 @@
                     <th>#</th>
                     <th>العميل</th>
                     <th>الهاتف</th>
-                    <th>البريد الإلكتروني</th>
+                    <th>رقم الاقامه </th>
                     <th>العنوان</th>
-                    <th>السيارات</th>
+                    <th>رقم السياره</th>
                     <th>إجمالي العقود</th>
                     <th>الحالة</th>
                     <th>الإجراءات</th>
@@ -102,6 +115,9 @@
                                 </button>
                             </form>
                             @endcan
+                            <a href="{{ route('payments.client', $client->id) }}" class="action-btn action-btn-view" title="عرض المدفوعات">
+                                <i class="bi bi-eye"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>

@@ -143,4 +143,15 @@ public function update(Request $request, Payment $payment)
         
         return view('payments.print', compact('payment'));
     }
+
+    public function clientPayments($clientId)
+    {
+        $client = Client::findOrFail($clientId);
+        $payments = Payment::whereHas('installment.contract', function ($query) use ($clientId) {
+            $query->where('client_id', $clientId);
+        })->with([
+            'installment.contract.client'
+        ])->latest()->paginate(10);
+        return view('payments.client-payments', compact('payments','client'));
+    }
 }

@@ -56,12 +56,12 @@
                 </div>
 
                 <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">البريد الإلكتروني</label>
+                    <label class="form-label-modern">رقم الاقامه </label>
                     <div class="input-icon-wrapper">
-                        <i class="bi bi-envelope input-icon"></i>
-                        <input type="email" name="email" value="{{ old('email') }}"
+                        <i class="bi bi-123 input-icon"></i>
+                        <input type="number" name="email" value="{{ old('email') }}"
                                class="form-control form-control-modern @error('email') is-invalid @enderror"
-                               placeholder="example@email.com">
+                               placeholder="رقم الاقامه">
                     </div>
                 </div>
 

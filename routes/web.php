@@ -16,7 +16,7 @@ use App\Http\Controllers\ContractController;
 |--------------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('profile.destroy');
 
     Route::put('/password', [ProfileController::class, 'updatePassword'])
-    ->name('password.update');
+        ->name('password.update');
 
 
 
@@ -73,7 +73,8 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('clients', ClientController::class);
+    Route::resource('clients', ClientController::class)
+    ->except(['show']);
 
     Route::get('clients-trashed', [ClientController::class, 'trashed'])
         ->name('clients.trashed');
@@ -83,19 +84,27 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('contracts', ContractController::class);
 
-   Route::get(
-    '/contracts/{contract}/installments',
-    [PaymentController::class, 'getInstallments']
-)->name('contracts.installments');
+    Route::get(
+        '/contracts/{contract}/installments',
+        [PaymentController::class, 'getInstallments']
+    )->name('contracts.installments');
 
-Route::put('/contracts/{contract}/update-installments', [
-    ContractController::class,
-    'updateInstallments',
-])->name('contracts.update_installments');
+    Route::put('/contracts/{contract}/update-installments', [
+        ContractController::class,
+        'updateInstallments',
+    ])->name('contracts.update_installments');
+
+
+    Route::get(
+        '/clients/export/excel',
+        [ClientController::class, 'exportExcel']
+    )->name('clients.export.excel');
+
+    Route::get('/clients/print', [ClientController::class, 'print'])
+        ->name('clients.print');
 
 
 
-    
 
 
 
@@ -107,8 +116,10 @@ Route::put('/contracts/{contract}/update-installments', [
 
     Route::resource('payments', PaymentController::class);
     Route::get('/payments/{payment}/print', [PaymentController::class, 'print'])
-    ->name('payments.print');
-    
+        ->name('payments.print');
+    Route::get('/clients/{client}/payments', [PaymentController::class, 'clientPayments'])
+        ->name('payments.client');
+
 
     /*
     |--------------------------------------------------------------------------

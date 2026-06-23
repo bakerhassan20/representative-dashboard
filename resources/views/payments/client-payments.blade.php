@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'المدفوعات')
@@ -6,8 +7,7 @@
 
     <div class="page-header">
         <div>
-            <h4 class="page-title">جميع المدفوعات</h4>
-            <p class="page-subtitle">سجل جميع دفعات الأقساط</p>
+            <h4 class="page-title">مدفوعات العميل : {{$client->name}}</h4>
         </div>
         @can('create payments')
         <a href="{{ route('payments.create') }}" class="btn-modern-primary">
@@ -43,7 +43,6 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>العميل</th>
                         <th>السيارة</th>
                         <th>رقم القسط</th>
                         <th>قيمة الدفعة</th>
@@ -65,9 +64,6 @@
 
                             <td>{{ $loop->iteration }}</td>
 
-                            <td>
-                                {{ $payment->installment->contract->client->name ?? 'N/A'}}
-                            </td>
 
                             <td>
                                 {{ $payment->installment->contract->car_name }}
