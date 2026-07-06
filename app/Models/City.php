@@ -6,27 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Client extends Model
+class City extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
-        'name',
-        'city_id',
-        'id_number',
-        'status',
+        'name'
     ];
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-
-    // Scope للبحث
     public function scopeSearch($query, $term)
     {
-        return $query->where('name', 'like', "%$term%")
-            ->orWhere('id_number', 'like', "%$term%");
+        return $query->where('name', 'like', "%$term%");
     }
 
     public function dailyReports()

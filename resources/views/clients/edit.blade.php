@@ -46,48 +46,28 @@
                     </div>
                 </div>
 
+                
                 <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">رقم الهاتف</label>
-                    <div class="input-icon-wrapper">
-                        <i class="bi bi-phone input-icon"></i>
-                        <input type="text" name="phone" value="{{ old('phone', $client->phone) }}"
-                               class="form-control form-control-modern">
-                    </div>
-                </div>
-
-                <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">رقم الاقامه </label>
+                    <label class="form-label-modern">رقم المعرف </label>
                     <div class="input-icon-wrapper">
                         <i class="bi bi-123 input-icon"></i>
-                        <input type="number" name="email" value="{{ old('email', $client->email) }}"
-                               class="form-control form-control-modern @error('email') is-invalid @enderror"
-                               placeholder="رقم الاقامه">
+                        <input type="number" name="id_number" value="{{ old('id_number', $client->id_number) }}"
+                               class="form-control form-control-modern @error('id_number') is-invalid @enderror"
+                               placeholder="رقم المعرف">
                     </div>
                 </div>
 
-                <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">العنوان</label>
+                {{-- City --}}
+                 <div class="form-group-modern mb-4">
+                    <label class="form-label-modern">المدينة <span class="text-danger">*</span></label>
                     <div class="input-icon-wrapper">
                         <i class="bi bi-geo-alt input-icon"></i>
-                        <input type="text" name="address" value="{{ old('address', $client->address) }}"
-                               class="form-control form-control-modern">
+                        <select name="city_id" class="form-control form-control-modern">
+                            @foreach($cities as $city)
+                                <option value="{{ $city->id }}" {{ old('city_id', $client->city_id) == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
-
-                <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">صورة الهوية</label>
-                     <div class="input-icon-wrapper">
-                         <i class="bi bi-file-earmark input-icon"></i>
-                        <input type="file" name="identification_photo"
-                                class="form-control form-control-modern">
-                    </div>
-                    @if ($client->identification_photo)
-                        <a href="{{ asset('storage/' . $client->identification_photo) }}"
-                            target="_blank"
-                            class="mt-2 d-inline-block">
-                            عرض الصورة الحالية
-                        </a>
-                    @endif
                 </div>
 
                 <div class="form-group-modern mb-5">

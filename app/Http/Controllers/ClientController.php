@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Client;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
@@ -14,8 +15,7 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
-        $clients = Client::with('contracts')
-        ->latest()
+        $clients = Client::latest()
         ->when($request->search, function ($q) use ($request) {
             $q->search($request->search);
         })
@@ -26,7 +26,8 @@ class ClientController extends Controller
 
     public function create()
     {
-        return view('clients.create');
+        $cities = City::all();
+        return view('clients.create', compact('cities'));
     }
 
 
@@ -35,13 +36,7 @@ class ClientController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('identification_photo')) {
-            $data['identification_photo'] =
-                $request->file('identification_photo')->store('clients','public');
-        }
-
         Client::create($data);
-
         return redirect()
             ->route('clients.index')
             ->with('success', 'تم إضافة العميل بنجاح');
@@ -49,7 +44,8 @@ class ClientController extends Controller
 
     public function edit(Client $client)
     {
-        return view('clients.edit', compact('client'));
+        $cities = City::all();
+        return view('clients.edit', compact('client', 'cities'));
     }
 
     public function update(ClientRequest $request, Client $client)

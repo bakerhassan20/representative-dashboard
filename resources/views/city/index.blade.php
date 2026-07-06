@@ -1,24 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'المناديب')
+@section('title', 'المدن')
 
 @section('content')
 
 {{-- Page Header --}}
 <div class="page-header">
     <div>
-        <h4 class="page-title">المناديب</h4>
-        <p class="page-subtitle">إدارة بيانات المناديب</p>
+        <h4 class="page-title">المدن</h4>
+        <p class="page-subtitle">إدارة بيانات المدن</p>
     </div>
-    @can('create clients')
-    <a href="{{ route('clients.create') }}" class="btn-modern-primary">
-        <i class="bi bi-plus-lg"></i> إضافة مندوب
+  
+    <a href="{{ route('cities.create') }}" class="btn-modern-primary">
+        <i class="bi bi-plus-lg"></i> إضافة مدينة
     </a>
-    @endcan
+   
 </div>
 
 
-@can('view clients')
 
 {{-- Search --}}
 <div class="card p-4 mb-4 border-0">
@@ -26,14 +25,14 @@
         <div class="search-input-wrapper flex-grow-1">
             <i class="bi bi-search search-icon"></i>
             <input type="text" name="search" class="form-control search-input"
-                   placeholder="ابحث باسم المندوب..."
+                   placeholder="ابحث باسم المدينة ..."
                    value="{{ request('search') }}">
         </div>
         <button type="submit" class="btn-modern-primary">
             <i class="bi bi-search"></i> بحث
         </button>
         @if(request('search'))
-            <a href="{{ route('clients.index') }}" class="btn-modern-secondary">
+            <a href="{{ route('cities.index') }}" class="btn-modern-secondary">
                 <i class="bi bi-x-lg"></i> مسح
             </a>
         @endif
@@ -47,49 +46,45 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>المندوب</th>
-                    <th>رقم المعرف </th>
                     <th>المدينة</th>
-                    <th>الحالة</th>
                     <th>الإجراءات</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($clients as $client)
+                @forelse($cities as $city)
                 <tr>
                     <td class="text-muted">{{ $loop->iteration }}</td>
                     <td>
                         <div class="table-user-cell">
-                            
-                            <span class="fw-bold">{{ $client->name }}</span>
+                            <div class="table-user-icon">{{ mb_substr($city->name, 0, 1) }}</div>
+                            <span class="fw-bold">{{ $city->name }}</span>
                         </div>
                     </td>
-                    <td class="text-muted">{{ $client->id_number }}</td>
-                    <td class="text-muted">{{ $client->city->name }}</td>
-                    <td>
-                        <span class="status-badge {{ $client->status == 'active' ? 'status-active' : 'status-inactive' }}">
-                            <span class="status-dot"></span>
-                            {{ $client->status == 'active' ? 'نشط' : 'غير نشط' }}
-                        </span>
-                    </td>
+                   
+                    
+                  
+                    
+
+                    
+                    
                     <td>
                         <div class="d-flex gap-2">
-                            @can('edit clients')
-                            <a href="{{ route('clients.edit', $client->id) }}" class="action-btn action-btn-edit" title="تعديل">
+                         
+                            <a href="{{ route('cities.edit', $city->id) }}" class="action-btn action-btn-edit" title="تعديل">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            @endcan
-                            @can('delete clients')
-                            <form action="{{ route('clients.destroy', $client->id) }}" method="POST" class="d-inline"
-                                  onsubmit="return confirm('هل أنت متأكد من حذف هذا المندوب؟')">
+                          
+                          
+                            <form action="{{ route('cities.destroy', $city->id) }}" method="POST" class="d-inline"
+                                  onsubmit="return confirm('هل أنت متأكد من حذف هذه المدينة؟')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="action-btn action-btn-delete" title="حذف">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
-                            @endcan
-                           
+                          
+                         
                         </div>
                     </td>
                 </tr>
@@ -98,8 +93,8 @@
                     <td colspan="7" class="text-center py-5">
                         <div class="empty-state">
                             <i class="bi bi-people"></i>
-                            <p>لا يوجد مناديب مسجلين بعد</p>
-                            <a href="{{ route('clients.create') }}" class="btn-modern-primary mt-2">إضافة أول مندوب</a>
+                            <p>لا يوجد مدن مسجلة بعد</p>
+                            <a href="{{ route('cities.create') }}" class="btn-modern-primary mt-2">إضافة أول مدينة</a>
                         </div>
                     </td>
                 </tr>
@@ -107,8 +102,8 @@
             </tbody>
         </table>
     </div>
-    {{ $clients->links('vendor.pagination.bootstrap-5') }}
+    {{ $cities->links('vendor.pagination.bootstrap-5') }}
 </div>
-@endcan
+
 
 @endsection

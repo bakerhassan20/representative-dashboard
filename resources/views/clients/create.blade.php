@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'إضافة عميل')
+@section('title', 'إضافة مندوب')
 
 @section('content')
 
 <div class="page-header">
     <div>
-        <h4 class="page-title">إضافة عميل جديد</h4>
-        <p class="page-subtitle">أدخل بيانات العميل الجديد</p>
+        <h4 class="page-title">إضافة مندوب جديد</h4>
+        <p class="page-subtitle">أدخل بيانات المندوب الجديد</p>
     </div>
     <a href="{{ route('clients.index') }}" class="btn-modern-secondary">
         <i class="bi bi-arrow-right"></i> العودة للقائمة
@@ -18,7 +18,7 @@
     <div class="col-lg-7">
         <div class="card border-0 p-4">
             <h5 class="form-section-title mb-4">
-                <i class="bi bi-person-plus"></i> بيانات العميل
+                <i class="bi bi-person-plus"></i> بيانات المندوب
             </h5>
 
             @if($errors->any())
@@ -45,47 +45,33 @@
                     </div>
                 </div>
 
-                <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">رقم الهاتف <span class="text-danger">*</span></label>
-                    <div class="input-icon-wrapper">
-                        <i class="bi bi-phone input-icon"></i>
-                        <input type="text" name="phone" value="{{ old('phone') }}"
-                               class="form-control form-control-modern @error('phone') is-invalid @enderror"
-                               placeholder="01xxxxxxxxx" required>
-                    </div>
-                </div>
+
 
                 <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">رقم الاقامه </label>
+                    <label class="form-label-modern">رقم المعرف </label>
                     <div class="input-icon-wrapper">
                         <i class="bi bi-123 input-icon"></i>
-                        <input type="number" name="email" value="{{ old('email') }}"
-                               class="form-control form-control-modern @error('email') is-invalid @enderror"
+                        <input type="number" name="id_number" value="{{ old('id_number') }}"
+                               class="form-control form-control-modern @error('id_number') is-invalid @enderror"
                                placeholder="رقم الاقامه">
                     </div>
                 </div>
 
                 <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">العنوان</label>
+                    <label class="form-label-modern">المدينة <span class="text-danger">*</span></label>
                     <div class="input-icon-wrapper">
                         <i class="bi bi-geo-alt input-icon"></i>
-                        <input type="text" name="address" value="{{ old('address') }}"
-                               class="form-control form-control-modern"
-                               placeholder="مثال: القاهرة، مصر الجديدة">
+                        <select name="city_id" class="form-control form-control-modern">
+                            @foreach($cities as $city)
+                                <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+               
 
 
-
-                <div class="form-group-modern mb-4">
-                    <label class="form-label-modern">صورة الهوية</label>
-                     <div class="input-icon-wrapper">
-                         <i class="bi bi-file-earmark input-icon"></i>
-                        <input type="file" name="identification_photo"
-                                class="form-control form-control-modern">
-                    </div>
-                </div>
-
+               
                 <div class="form-group-modern mb-5">
                     <label class="form-label-modern">الحالة</label>
                     <select name="status" class="form-control form-control-modern">
@@ -96,7 +82,7 @@
 
                 <div class="">
                     <button type="submit" class="btn-modern-primary flex-grow-1">
-                        <i class="bi bi-check-lg"></i> حفظ العميل
+                        <i class="bi bi-check-lg"></i> حفظ المندوب
                     </button>
                     <a href="{{ route('clients.index') }}" class="btn-modern-secondary">
                         إلغاء

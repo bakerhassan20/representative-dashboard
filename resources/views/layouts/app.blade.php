@@ -26,13 +26,17 @@
     <div class="wrapper">
 
         <!-- SIDEBAR -->
-        @include('partials.sidebar')
+        @auth
+            @include('partials.sidebar')
+        @endauth
 
         <!-- MAIN -->
-        <div class="main">
+        <div class="main" style="{{ !auth()->check() ? 'margin-right: 0; width: 100%;' : '' }}">
 
             <!-- NAVBAR -->
-            @include('partials.navbar')
+            @auth
+                @include('partials.navbar')
+            @endauth
 
             <!-- CONTENT -->
             <div class="content">
@@ -51,24 +55,32 @@
     <script>
         // Dark Mode Toggle
         const toggleBtn = document.getElementById('toggleTheme');
-        const icon = toggleBtn.querySelector('i');
+        
+        if (toggleBtn) {
+            const icon = toggleBtn.querySelector('i');
 
-        // Read from localStorage if theme preference is stored
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            icon.classList.replace('bi-moon', 'bi-sun');
-        }
-
-        toggleBtn.addEventListener('click', function () {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.replace('bi-moon', 'bi-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                icon.classList.replace('bi-sun', 'bi-moon');
-                localStorage.setItem('theme', 'light');
+            // Read from localStorage if theme preference is stored
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                if (icon) icon.classList.replace('bi-moon', 'bi-sun');
             }
-        });
+
+            toggleBtn.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    if (icon) icon.classList.replace('bi-moon', 'bi-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    if (icon) icon.classList.replace('bi-sun', 'bi-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        } else {
+            // Apply dark mode theme if set in local storage even if button is not present
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        }
 
         // Sidebar Toggle Responsive
         const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');

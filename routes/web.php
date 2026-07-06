@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\DailyReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\AdminDailyReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +26,10 @@ require __DIR__ . '/auth.php';
 | HOME REDIRECT
 |--------------------------------------------------------------------------
 */
+
+Route::get('/report', [DailyReportController::class, 'create'])->name('daily-report.create');
+Route::get('/report/client-info', [DailyReportController::class, 'getClientInfo'])->name('daily-report.client-info');
+Route::post('/report', [DailyReportController::class, 'store'])->name('daily-report.store');
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -63,10 +70,19 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/password', [ProfileController::class, 'updatePassword'])
         ->name('password.update');
 
-
-
-
-
+    /*
+    |--------------------------------------------------------------------------
+    | DAILY REPORTS (ADMIN)
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('admin/daily-reports')->name('admin.daily-reports.')->group(function () {
+        Route::get('/', [AdminDailyReportController::class, 'index'])->name('index');
+        Route::post('/bulk-action', [AdminDailyReportController::class, 'bulkAction'])->name('bulk');
+        Route::get('/{id}', [AdminDailyReportController::class, 'show'])->name('show');
+        Route::put('/{id}/status', [AdminDailyReportController::class, 'updateStatus'])->name('status');
+        Route::put('/{id}/resubmit', [AdminDailyReportController::class, 'toggleResubmit'])->name('resubmit');
+        Route::delete('/{id}', [AdminDailyReportController::class, 'destroy'])->name('destroy');
+    });
     /*
     |--------------------------------------------------------------------------
     | CLIENTS MODULE
@@ -82,43 +98,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('clients-restore/{id}', [ClientController::class, 'restore'])
         ->name('clients.restore');
 
-    Route::resource('contracts', ContractController::class);
 
-    Route::get(
-        '/contracts/{contract}/installments',
-        [PaymentController::class, 'getInstallments']
-    )->name('contracts.installments');
-
-    Route::put('/contracts/{contract}/update-installments', [
-        ContractController::class,
-        'updateInstallments',
-    ])->name('contracts.update_installments');
-
-
-    Route::get(
-        '/clients/export/excel',
-        [ClientController::class, 'exportExcel']
-    )->name('clients.export.excel');
-
-    Route::get('/clients/print', [ClientController::class, 'print'])
-        ->name('clients.print');
+   // city routes
+    Route::resource('cities', CityController::class)
+    ->except(['show']);
 
 
 
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | PAYMENTS MODULE
-    |--------------------------------------------------------------------------
-    */
 
-    Route::resource('payments', PaymentController::class);
-    Route::get('/payments/{payment}/print', [PaymentController::class, 'print'])
-        ->name('payments.print');
-    Route::get('/clients/{client}/payments', [PaymentController::class, 'clientPayments'])
-        ->name('payments.client');
 
 
     /*
