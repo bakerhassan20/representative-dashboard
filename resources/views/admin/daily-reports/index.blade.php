@@ -82,7 +82,7 @@
                     
                     <button type="submit" name="export" value="excel" class="btn btn-success btn-sm" title="تصدير Excel"><i class="bi bi-file-earmark-excel"></i></button>
                     <button type="submit" name="export" value="csv" class="btn btn-secondary btn-sm" title="تصدير CSV"><i class="bi bi-file-earmark-spreadsheet"></i></button>
-                    <button type="submit" name="export" value="pdf" class="btn btn-danger btn-sm" title="تصدير PDF"><i class="bi bi-file-earmark-pdf"></i></button>
+                    <button type="submit" name="export" value="pdf" class="btn btn-danger btn-sm" title="طباعة التقارير" onclick="this.form.target='_blank'; setTimeout(() => this.form.target='', 100);"><i class="bi bi-printer"></i></button>
                 </div>
             </div>
         </form>
@@ -99,12 +99,13 @@
                     <option value="enable_resubmit">تمكين إعادة الإرسال</option>
                     <option value="disable_resubmit">تعطيل إعادة الإرسال</option>
                     <option value="export_excel">تصدير المحدد (Excel)</option>
-                    <option value="export_pdf">تصدير المحدد (PDF)</option>
+                    <option value="export_pdf">طباعة التقارير المحددة</option>
                     <option value="delete">حذف المحدد</option>
                 </select>
                 <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('تأكيد الإجراء الجماعي؟')">تطبيق</button>
             </div>
-
+            
+            {{-- Rest of table --}}
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
@@ -185,6 +186,15 @@
         var checkboxes = document.querySelectorAll('.report-checkbox');
         for (var checkbox of checkboxes) {
             checkbox.checked = this.checked;
+        }
+    });
+
+    document.getElementById('bulk-form').addEventListener('submit', function(e) {
+        const actionSelect = this.querySelector('select[name="action"]');
+        if (actionSelect && actionSelect.value === 'export_pdf') {
+            this.target = '_blank';
+        } else {
+            this.target = '';
         }
     });
 </script>

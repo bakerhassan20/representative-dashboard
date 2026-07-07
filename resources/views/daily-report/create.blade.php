@@ -148,7 +148,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">الرسوم</label>
+                                <label class="form-label fw-semibold text-secondary">طلبات الرفض</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
@@ -182,7 +182,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">ساعات التوصيل</label>
+                                <label class="form-label fw-semibold text-secondary">ساعات العمل</label>
                                 <div class="input-group">
                                     <input
                                         type="number"

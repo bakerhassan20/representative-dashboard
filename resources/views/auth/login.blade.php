@@ -305,8 +305,8 @@
                     <i class="bi bi-box-seam" style="font-size: 40px; color: var(--primary);"></i>
                 </div>
                 @endif
-                <h4>{{ $settings->site_name ?? 'إطلالة المشرق' }}</h4>
-                <p>{{ $settings->site_description ?? 'تسجيل الدخول للوحة الإدارة' }}</p>
+                <h4>إطلالة المشرق</h4>
+                <p>الإطلالة المشرق للخدمات اللوجستيه</p>
             </div>
 
             <!-- Validation Error Alert -->

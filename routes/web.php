@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
     */
     Route::prefix('admin/daily-reports')->name('admin.daily-reports.')->group(function () {
         Route::get('/', [AdminDailyReportController::class, 'index'])->name('index');
+        Route::get('/clients-without-report', [AdminDailyReportController::class, 'clientsWithoutReport'])->name('clients-without-report');
         Route::post('/bulk-action', [AdminDailyReportController::class, 'bulkAction'])->name('bulk');
         Route::get('/{id}', [AdminDailyReportController::class, 'show'])->name('show');
         Route::put('/{id}/status', [AdminDailyReportController::class, 'updateStatus'])->name('status');

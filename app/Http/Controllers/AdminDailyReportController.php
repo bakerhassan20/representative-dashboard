@@ -115,8 +115,7 @@ class AdminDailyReportController extends Controller
                 return Excel::download(new DailyReportExport($query), $fileName . '.csv', \Maatwebsite\Excel\Excel::CSV);
             } elseif ($exportType === 'pdf') {
                 $reports = $query->get();
-                $pdf = Pdf::loadView('admin.daily-reports.pdf', compact('reports'));
-                return $pdf->download($fileName . '.pdf');
+                return view('admin.daily-reports.pdf', compact('reports'));
             }
         }
 
@@ -198,10 +197,38 @@ class AdminDailyReportController extends Controller
                 return Excel::download(new DailyReportExport($query), 'selected_reports.csv', \Maatwebsite\Excel\Excel::CSV);
             case 'export_pdf':
                 $reports = DailyReport::whereIn('id', $ids)->get();
-                $pdf = Pdf::loadView('admin.daily-reports.pdf', compact('reports'));
-                return $pdf->download('selected_reports.pdf');
+                return view('admin.daily-reports.pdf', compact('reports'));
         }
 
         return back()->with('success', 'تم تنفيذ الإجراء الجماعي بنجاح.');
+    }
+
+    public function clientsWithoutReport(Request $request)
+    {
+        $today = Carbon::today();
+
+        // Get IDs of clients who submitted a report today
+        $reportedClientIds = DailyReport::whereDate('report_date', $today)
+            ->pluck('client_id')
+            ->unique()
+            ->toArray();
+
+        $query = Client::with('city')
+            ->where('status', 'active')
+            ->whereNotIn('id', $reportedClientIds);
+
+        if ($request->filled('city_id')) {
+            $query->where('city_id', $request->city_id);
+        }
+
+        if ($request->filled('search')) {
+            $query->search($request->search);
+        }
+
+        $clients = $query->orderBy('name')->paginate(20)->withQueryString();
+        $cities  = City::all();
+        $date    = $today->format('Y-m-d');
+
+        return view('admin.daily-reports.clients-without-report', compact('clients', 'cities', 'date'));
     }
 }

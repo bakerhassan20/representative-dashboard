@@ -15,11 +15,9 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'nullable',
-            'phone' => 'required|string|max:20',
-            'address' => 'nullable|string',
-            'notes' => 'nullable|string',
-            'status' => 'required|in:active,inactive'
+            'id_number' => 'required|string|max:255',
+            'city_id' => 'required|exists:cities,id',
+            'status' => 'required|in:active,inactive',
         ];
     }
 }

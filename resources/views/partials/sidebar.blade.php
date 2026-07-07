@@ -87,8 +87,14 @@
             @endcan
 
             <li>
-                <a href="{{ route('admin.daily-reports.index') }}" class="{{ request()->routeIs('admin.daily-reports.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.daily-reports.index') }}" class="{{ request()->routeIs('admin.daily-reports.index') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i> التقارير اليومية
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('admin.daily-reports.clients-without-report') }}" class="{{ request()->routeIs('admin.daily-reports.clients-without-report') ? 'active' : '' }}">
+                    <i class="bi bi-person-x-fill"></i> مناديب لم يرسلوا تقرير اليوم
                 </a>
             </li>
 
