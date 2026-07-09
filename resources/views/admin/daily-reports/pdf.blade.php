@@ -139,7 +139,8 @@
                 <th>التاريخ</th>
                 <th>الأرباح</th>
                 <th>الرسوم</th>
-                <th>الإكرامية</th>
+                <th>مكتملة</th>
+                <th>مرفوضة</th>
                 <th>الصافي</th>
                 <th>الحالة</th>
             </tr>
@@ -148,14 +149,16 @@
             @php
                 $totalEarned = 0;
                 $totalFees   = 0;
-                $totalTips   = 0;
+                $totalCompleted = 0;
+                $totalRejected = 0;
             @endphp
             @foreach($reports as $i => $report)
             @php
                 $totalEarned += $report->earned_amount;
                 $totalFees   += $report->fees;
-                $totalTips   += $report->tips;
-                $net = $report->earned_amount + $report->tips - $report->fees;
+                $totalCompleted += $report->completed_orders_count;
+                $totalRejected += $report->rejected_orders_count;
+                $net = $report->earned_amount - $report->fees;
             @endphp
             <tr>
                 <td>{{ $i + 1 }}</td>
@@ -165,7 +168,8 @@
                 <td>{{ $report->report_date->format('Y-m-d') }}</td>
                 <td class="text-green">{{ number_format($report->earned_amount, 2) }}</td>
                 <td class="text-red">{{ number_format($report->fees, 2) }}</td>
-                <td class="text-blue">{{ number_format($report->tips, 2) }}</td>
+                <td class="text-blue">{{ $report->completed_orders_count }}</td>
+                <td class="text-warning">{{ $report->rejected_orders_count }}</td>
                 <td><strong>{{ number_format($net, 2) }}</strong></td>
                 <td>
                     @if($report->status == 'approved')
@@ -185,8 +189,9 @@
         <div>إجمالي التقارير: <span>{{ $reports->count() }}</span></div>
         <div>إجمالي الأرباح: <span class="text-green">{{ number_format($totalEarned, 2) }}</span></div>
         <div>إجمالي الرسوم: <span class="text-red">{{ number_format($totalFees, 2) }}</span></div>
-        <div>إجمالي الإكرامية: <span class="text-blue">{{ number_format($totalTips, 2) }}</span></div>
-        <div>الصافي الكلي: <span>{{ number_format($totalEarned + $totalTips - $totalFees, 2) }}</span></div>
+        <div>إجمالي الطلبات المكتملة: <span class="text-blue">{{ $totalCompleted }}</span></div>
+        <div>إجمالي طلبات الرفض: <span class="text-warning">{{ $totalRejected }}</span></div>
+        <div>الصافي الكلي: <span>{{ number_format($totalEarned - $totalFees, 2) }}</span></div>
     </div>
 
 </body>

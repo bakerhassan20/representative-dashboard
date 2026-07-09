@@ -148,7 +148,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">طلبات الرفض</label>
+                                <label class="form-label fw-semibold text-secondary">طلبات الرفض (كقيمة مالية)</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
@@ -165,17 +165,36 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">الإكرامية (Tips)</label>
+                                <label class="form-label fw-semibold text-secondary">عدد الطلبات المكتملة</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
-                                        step="0.01"
-                                        class="form-control bg-light @error('tips') is-invalid @enderror"
-                                        name="tips"
-                                        placeholder="0.00"
-                                        value="{{ old('tips', '0.00') }}">
-                                    <span class="input-group-text bg-light border-start-0">ر.س</span>
-                                    @error('tips')
+                                        step="1"
+                                        class="form-control bg-light @error('completed_orders_count') is-invalid @enderror"
+                                        name="completed_orders_count"
+                                        placeholder="0"
+                                        value="{{ old('completed_orders_count', '0') }}"
+                                        required>
+                                    <span class="input-group-text bg-light border-start-0">طلب</span>
+                                    @error('completed_orders_count')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label fw-semibold text-secondary">عدد طلبات الرفض</label>
+                                <div class="input-group">
+                                    <input
+                                        type="number"
+                                        step="1"
+                                        class="form-control bg-light @error('rejected_orders_count') is-invalid @enderror"
+                                        name="rejected_orders_count"
+                                        placeholder="0"
+                                        value="{{ old('rejected_orders_count', '0') }}"
+                                        required>
+                                    <span class="input-group-text bg-light border-start-0">طلب</span>
+                                    @error('rejected_orders_count')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

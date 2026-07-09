@@ -120,7 +120,8 @@
                             <th>المركبة</th>
                             <th><a href="?sort=earned_amount&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">الأرباح</a></th>
                             <th><a href="?sort=fees&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">الرسوم</a></th>
-                            <th><a href="?sort=tips&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">الإكرامية</a></th>
+                            <th><a href="?sort=completed_orders_count&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">طلبات مكتملة</a></th>
+                            <th><a href="?sort=rejected_orders_count&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">طلبات رفض</a></th>
                             <th>صافي</th>
                             <th>صورة</th>
                             <th>الحالة</th>
@@ -140,8 +141,9 @@
                                 <td>{{ $report->vehicle_type }}</td>
                                 <td class="text-success fw-bold">{{ $report->earned_amount }}</td>
                                 <td class="text-danger">{{ $report->fees }}</td>
-                                <td class="text-primary">{{ $report->tips }}</td>
-                                <td class="fw-bold">{{ $report->earned_amount + $report->tips - $report->fees }}</td>
+                                <td class="text-success">{{ $report->completed_orders_count }}</td>
+                                <td class="text-warning">{{ $report->rejected_orders_count }}</td>
+                                <td class="fw-bold">{{ $report->earned_amount - $report->fees }}</td>
                                 <td>
                                     @if($report->payment_image)
                                         <a href="{{ Storage::url($report->payment_image) }}" target="_blank" class="badge bg-info text-decoration-none">عرض</a>

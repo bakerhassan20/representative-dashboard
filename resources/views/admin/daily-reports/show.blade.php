@@ -67,6 +67,14 @@
                         <span class="fw-bold">{{ $report->vehicle_type }}</span>
                     </li>
                     <li class="list-group-item px-0 d-flex justify-content-between">
+                        <span class="text-muted">الطلبات المكتملة:</span>
+                        <span class="fw-bold">{{ $report->completed_orders_count }} طلب</span>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between">
+                        <span class="text-muted">طلبات الرفض:</span>
+                        <span class="fw-bold">{{ $report->rejected_orders_count }} طلب</span>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between">
                         <span class="text-muted">ساعات التوصيل:</span>
                         <span class="fw-bold">{{ $report->delivery_hours }} ساعة</span>
                     </li>
@@ -106,16 +114,12 @@
                         <span class="fw-bold text-success">{{ number_format($report->earned_amount, 2) }} ر.س</span>
                     </li>
                     <li class="list-group-item px-0 d-flex justify-content-between">
-                        <span class="text-muted">الإكراميات (Tips):</span>
-                        <span class="fw-bold text-primary">{{ number_format($report->tips, 2) }} ر.س</span>
-                    </li>
-                    <li class="list-group-item px-0 d-flex justify-content-between">
-                        <span class="text-muted">الرسوم:</span>
+                        <span class="text-muted">الرسوم (قيمة طلبات الرفض وغيرها):</span>
                         <span class="fw-bold text-danger">- {{ number_format($report->fees, 2) }} ر.س</span>
                     </li>
                     <li class="list-group-item px-0 d-flex justify-content-between bg-light mt-2 rounded">
                         <span class="text-dark fw-bold">صافي الدخل:</span>
-                        <span class="fw-bold fs-5 text-dark">{{ number_format($report->earned_amount + $report->tips - $report->fees, 2) }} ر.س</span>
+                        <span class="fw-bold fs-5 text-dark">{{ number_format($report->earned_amount - $report->fees, 2) }} ر.س</span>
                     </li>
                 </ul>
             </div>

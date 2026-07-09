@@ -37,7 +37,8 @@ class DailyReportExport implements FromQuery, WithHeadings, WithMapping
             'ساعات التوصيل',
             'الأرباح',
             'الرسوم',
-            'الإكرامية',
+            'الطلبات المكتملة',
+            'طلبات الرفض',
             'صافي الدخل',
             'الحالة',
             'تاريخ الإنشاء',
@@ -46,7 +47,7 @@ class DailyReportExport implements FromQuery, WithHeadings, WithMapping
 
     public function map($report): array
     {
-        $netIncome = $report->earned_amount + $report->tips - $report->fees;
+        $netIncome = $report->earned_amount - $report->fees;
         return [
             $report->id,
             $report->client->name ?? 'غير محدد',
@@ -58,7 +59,8 @@ class DailyReportExport implements FromQuery, WithHeadings, WithMapping
             $report->delivery_hours,
             $report->earned_amount,
             $report->fees,
-            $report->tips,
+            $report->completed_orders_count,
+            $report->rejected_orders_count,
             $netIncome,
             $report->status == 'approved' ? 'معتمد' : ($report->status == 'pending' ? 'قيد الانتظار' : 'مرفوض'),
             $report->created_at->format('Y-m-d H:i'),
