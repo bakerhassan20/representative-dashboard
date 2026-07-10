@@ -97,7 +97,7 @@
     </div>
 
     <div class="row g-4 mb-4">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-light border-0 shadow-sm">
                 <div class="card-body text-center">
                     <h6 class="text-muted mb-2">أرباح اليوم</h6>
@@ -105,15 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-light border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <h6 class="text-muted mb-2">رسوم اليوم</h6>
-                    <h3 class="text-danger mb-0">{{ number_format($todaysFees, 2) }} ر.س</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-light border-0 shadow-sm">
                 <div class="card-body text-center">
                     <h6 class="text-muted mb-2">الطلبات المكتملة لليوم</h6>
@@ -121,19 +113,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-light border-0 shadow-sm">
                 <div class="card-body text-center">
                     <h6 class="text-muted mb-2">طلبات الرفض لليوم</h6>
                     <h3 class="text-warning mb-0">{{ $todaysRejectedOrders }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-light border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <h6 class="text-muted mb-2">صافي دخل اليوم</h6>
-                    <h3 class="text-dark fw-bold mb-0">{{ number_format($todaysNetIncome, 2) }} ر.س</h3>
                 </div>
             </div>
         </div>

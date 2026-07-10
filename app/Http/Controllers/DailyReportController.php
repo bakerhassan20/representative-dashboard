@@ -65,7 +65,6 @@ class DailyReportController extends Controller
             $existingReport->update([
                 'phone' => $request->phone,
                 'earned_amount' => $request->earned_amount,
-                'fees' => $request->fees ?? 0,
                 'completed_orders_count' => $request->completed_orders_count,
                 'rejected_orders_count' => $request->rejected_orders_count,
                 'delivery_hours' => $request->delivery_hours,
@@ -90,7 +89,6 @@ class DailyReportController extends Controller
             'phone' => $request->phone,
             'report_date' => $request->report_date,
             'earned_amount' => $request->earned_amount,
-            'fees' => $request->fees ?? 0,
             'completed_orders_count' => $request->completed_orders_count,
             'rejected_orders_count' => $request->rejected_orders_count,
             'delivery_hours' => $request->delivery_hours,

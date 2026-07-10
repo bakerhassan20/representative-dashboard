@@ -148,23 +148,6 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">طلبات الرفض (كقيمة مالية)</label>
-                                <div class="input-group">
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        class="form-control bg-light @error('fees') is-invalid @enderror"
-                                        name="fees"
-                                        placeholder="0.00"
-                                        value="{{ old('fees', '0.00') }}">
-                                    <span class="input-group-text bg-light border-start-0">ر.س</span>
-                                    @error('fees')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-3">
                                 <label class="form-label fw-semibold text-secondary">عدد الطلبات المكتملة</label>
                                 <div class="input-group">
                                     <input

@@ -93,7 +93,7 @@ class AdminDailyReportController extends Controller
         $sortColumn = $request->input('sort', 'created_at');
         $sortDirection = $request->input('direction', 'desc');
 
-        $allowedSorts = ['report_date', 'earned_amount', 'completed_orders_count', 'rejected_orders_count', 'fees', 'delivery_hours', 'created_at'];
+        $allowedSorts = ['report_date', 'earned_amount', 'completed_orders_count', 'rejected_orders_count', 'delivery_hours', 'created_at'];
         if (in_array($sortColumn, $allowedSorts)) {
             $query->orderBy($sortColumn, $sortDirection);
         } elseif ($sortColumn === 'client') {

@@ -28,10 +28,8 @@ class DashboardController extends Controller
         $rejectedReports = DailyReport::where('status', 'rejected')->count();
 
         $todaysEarnings = DailyReport::whereDate('report_date', $today)->sum('earned_amount');
-        $todaysFees = DailyReport::whereDate('report_date', $today)->sum('fees');
         $todaysCompletedOrders = DailyReport::whereDate('report_date', $today)->sum('completed_orders_count');
         $todaysRejectedOrders = DailyReport::whereDate('report_date', $today)->sum('rejected_orders_count');
-        $todaysNetIncome = $todaysEarnings - $todaysFees;
 
         $avgDeliveryHoursToday = DailyReport::whereDate('report_date', $today)->avg('delivery_hours') ?? 0;
         
@@ -106,7 +104,7 @@ class DashboardController extends Controller
         return view('dashboard.index', compact(
             'totalDrivers', 'activeDrivers', 'inactiveDrivers',
             'reportsToday', 'missingReportsTodayCount', 'pendingReports', 'approvedReports', 'rejectedReports',
-            'todaysEarnings', 'todaysFees', 'todaysCompletedOrders', 'todaysRejectedOrders', 'todaysNetIncome',
+            'todaysEarnings', 'todaysCompletedOrders', 'todaysRejectedOrders',
             'avgDeliveryHoursToday', 'reportsThisWeek', 'reportsThisMonth',
             'dates30', 'reports30', 'earnings30',
             'reportsByCity', 'vehicleTypes', 'reportStatus',

@@ -13,7 +13,6 @@ class DailyReport extends Model
         'report_date',
         'phone',
         'earned_amount',
-        'fees',
         'completed_orders_count',
         'rejected_orders_count',
         'delivery_hours',
@@ -27,7 +26,6 @@ class DailyReport extends Model
     protected $casts = [
         'report_date' => 'date',
         'earned_amount' => 'decimal:2',
-        'fees' => 'decimal:2',
         'completed_orders_count' => 'integer',
         'rejected_orders_count' => 'integer',
         'delivery_hours' => 'decimal:2',

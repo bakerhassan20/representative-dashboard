@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Cairo', sans-serif;
@@ -52,7 +57,10 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        .btn-print:hover { background: #1d4ed8; }
+
+        .btn-print:hover {
+            background: #1d4ed8;
+        }
 
         table {
             width: 100%;
@@ -60,7 +68,7 @@
             background: #fff;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
         }
 
         thead tr {
@@ -82,8 +90,13 @@
             vertical-align: middle;
         }
 
-        tr:last-child td { border-bottom: none; }
-        tr:nth-child(even) td { background: #f8faff; }
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8faff;
+        }
 
         .badge {
             display: inline-block;
@@ -92,13 +105,34 @@
             font-size: 11px;
             font-weight: 600;
         }
-        .badge-approved { background: #dcfce7; color: #166534; }
-        .badge-rejected { background: #fee2e2; color: #991b1b; }
-        .badge-pending  { background: #fef9c3; color: #92400e; }
 
-        .text-green  { color: #16a34a; font-weight: 600; }
-        .text-red    { color: #dc2626; }
-        .text-blue   { color: #2563eb; }
+        .badge-approved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-pending {
+            background: #fef9c3;
+            color: #92400e;
+        }
+
+        .text-green {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .text-red {
+            color: #dc2626;
+        }
+
+        .text-blue {
+            color: #2563eb;
+        }
 
         .summary-row {
             margin-top: 18px;
@@ -108,18 +142,40 @@
             font-size: 13px;
             color: #374151;
         }
-        .summary-row span { font-weight: 700; }
+
+        .summary-row span {
+            font-weight: 700;
+        }
 
         /* ======= PRINT STYLES ======= */
         @media print {
-            body { background: #fff; padding: 10px; font-size: 11px; }
-            .btn-print { display: none !important; }
-            table { box-shadow: none; }
-            thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            tr:nth-child(even) td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body {
+                background: #fff;
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            .btn-print {
+                display: none !important;
+            }
+
+            table {
+                box-shadow: none;
+            }
+
+            thead tr {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            tr:nth-child(even) td {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <button class="btn-print" onclick="window.print()">🖨 طباعة</button>
@@ -134,53 +190,46 @@
             <tr>
                 <th>#</th>
                 <th>المندوب</th>
-                <th>رقم الهوية</th>
+                <th>رقم المعرف</th>
                 <th>المدينة</th>
                 <th>التاريخ</th>
                 <th>الأرباح</th>
-                <th>الرسوم</th>
                 <th>مكتملة</th>
                 <th>مرفوضة</th>
-                <th>الصافي</th>
                 <th>الحالة</th>
             </tr>
         </thead>
         <tbody>
             @php
                 $totalEarned = 0;
-                $totalFees   = 0;
                 $totalCompleted = 0;
                 $totalRejected = 0;
             @endphp
             @foreach($reports as $i => $report)
-            @php
-                $totalEarned += $report->earned_amount;
-                $totalFees   += $report->fees;
-                $totalCompleted += $report->completed_orders_count;
-                $totalRejected += $report->rejected_orders_count;
-                $net = $report->earned_amount - $report->fees;
-            @endphp
-            <tr>
-                <td>{{ $i + 1 }}</td>
-                <td>{{ $report->client->name ?? 'غير محدد' }}</td>
-                <td>{{ $report->client->id_number ?? 'غير محدد' }}</td>
-                <td>{{ $report->city->name ?? 'غير محدد' }}</td>
-                <td>{{ $report->report_date->format('Y-m-d') }}</td>
-                <td class="text-green">{{ number_format($report->earned_amount, 2) }}</td>
-                <td class="text-red">{{ number_format($report->fees, 2) }}</td>
-                <td class="text-blue">{{ $report->completed_orders_count }}</td>
-                <td class="text-warning">{{ $report->rejected_orders_count }}</td>
-                <td><strong>{{ number_format($net, 2) }}</strong></td>
-                <td>
-                    @if($report->status == 'approved')
-                        <span class="badge badge-approved">معتمد</span>
-                    @elseif($report->status == 'rejected')
-                        <span class="badge badge-rejected">مرفوض</span>
-                    @else
-                        <span class="badge badge-pending">انتظار</span>
-                    @endif
-                </td>
-            </tr>
+                @php
+                    $totalEarned += $report->earned_amount;
+                    $totalCompleted += $report->completed_orders_count;
+                    $totalRejected += $report->rejected_orders_count;
+                @endphp
+                <tr>
+                    <td>{{ $i + 1 }}</td>
+                    <td>{{ $report->client->name ?? 'غير محدد' }}</td>
+                    <td>{{ $report->client->id_number ?? 'غير محدد' }}</td>
+                    <td>{{ $report->city->name ?? 'غير محدد' }}</td>
+                    <td>{{ $report->report_date->format('Y-m-d') }}</td>
+                    <td class="text-green">{{ number_format($report->earned_amount, 2) }}</td>
+                    <td class="text-blue">{{ $report->completed_orders_count }}</td>
+                    <td class="text-warning">{{ $report->rejected_orders_count }}</td>
+                    <td>
+                        @if($report->status == 'approved')
+                            <span class="badge badge-approved">معتمد</span>
+                        @elseif($report->status == 'rejected')
+                            <span class="badge badge-rejected">مرفوض</span>
+                        @else
+                            <span class="badge badge-pending">انتظار</span>
+                        @endif
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
@@ -188,11 +237,10 @@
     <div class="summary-row">
         <div>إجمالي التقارير: <span>{{ $reports->count() }}</span></div>
         <div>إجمالي الأرباح: <span class="text-green">{{ number_format($totalEarned, 2) }}</span></div>
-        <div>إجمالي الرسوم: <span class="text-red">{{ number_format($totalFees, 2) }}</span></div>
         <div>إجمالي الطلبات المكتملة: <span class="text-blue">{{ $totalCompleted }}</span></div>
         <div>إجمالي طلبات الرفض: <span class="text-warning">{{ $totalRejected }}</span></div>
-        <div>الصافي الكلي: <span>{{ number_format($totalEarned - $totalFees, 2) }}</span></div>
     </div>
 
 </body>
+
 </html>
