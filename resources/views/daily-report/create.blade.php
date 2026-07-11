@@ -4,7 +4,31 @@
 
 <div class="container py-4">
 
-
+            <!-- Logo & Brand Header -->
+            <div class="login-logo text-center mb-5">
+                <div class="logo-wrapper mb-3 d-flex justify-content-center">
+                    @if(isset($settings) && $settings->logo)
+                    <img src="{{ asset('uploads/settings/' . $settings->logo) }}" alt="Logo" class="img-fluid rounded  d-block mx-auto" style="max-height: 120px; object-fit: contain;">
+                    @else
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-gradient bg-opacity-10 text-primary rounded-circle shadow-sm mx-auto" style="width: 90px; height: 90px;">
+                        <i class="bi bi-building fs-1"></i>
+                    </div>
+                    @endif
+                </div>
+                <h3 class="fw-bolder text-primary mb-2">إطلالة المشرق</h3>
+                <p class="text-secondary fw-medium mb-3 fs-6">الإطلالة المشرق للخدمات اللوجستيه</p>
+                
+                <div class="d-flex flex-wrap justify-content-center gap-3 text-muted">
+                    <div class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border">
+                        <i class="bi bi-envelope-at-fill text-primary ms-2 fs-5"></i>
+                        <span class="fw-semibold" style="direction: ltr;">qm100300500@gmail.com</span>
+                    </div>
+                    <div class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border">
+                        <i class="bi bi-telephone-fill text-primary ms-2 fs-5"></i>
+                        <span class="fw-semibold" style="direction: ltr;">01122002942</span>
+                    </div>
+                </div>
+            </div>
 
     <div class="row justify-content-center">
         <div class="col-lg-12 col-xl-12">

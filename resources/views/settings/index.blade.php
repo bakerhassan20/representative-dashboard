@@ -69,6 +69,17 @@
                                placeholder="Favicon">
                     </div>
                 </div>
+                <!-- primary_color -->
+                 <div class="form-group-modern mb-4">
+                    <label class="form-label-modern"> اللون الأساسي</label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-palette input-icon"></i>
+                        <input type="color" name="primary_color"
+                               value="{{ $settings->primary_color ?? '' }}"
+                               class="form-control form-control-modern"
+                               placeholder="اللون الأساسي">
+                    </div>
+                </div>
 
               
 
