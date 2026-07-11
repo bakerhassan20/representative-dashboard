@@ -15,18 +15,22 @@
                     </div>
                     @endif
                 </div>
-                <h3 class="fw-bolder text-primary mb-2">إطلالة المشرق</h3>
-                <p class="text-secondary fw-medium mb-3 fs-6">الإطلالة المشرق للخدمات اللوجستيه</p>
+                <h3 class="fw-bolder text-primary mb-2">{{ $settings->site_name ?? '' }}</h3>
+                <p class="text-secondary fw-medium mb-3 fs-6">{{ $settings->site_description ?? '' }}</p>
                 
                 <div class="d-flex flex-wrap justify-content-center gap-3 text-muted">
+                    @if(isset($settings) && $settings->email)
                     <div class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border">
                         <i class="bi bi-envelope-at-fill text-primary ms-2 fs-5"></i>
-                        <span class="fw-semibold" style="direction: ltr;">qm100300500@gmail.com</span>
+                        <span class="fw-semibold" style="direction: ltr;">{{ $settings->email }}</span>
                     </div>
+                    @endif
+                    @if(isset($settings) && $settings->phone)
                     <div class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border">
                         <i class="bi bi-telephone-fill text-primary ms-2 fs-5"></i>
-                        <span class="fw-semibold" style="direction: ltr;">01122002942</span>
+                        <span class="fw-semibold" style="direction: ltr;">{{ $settings->phone }}</span>
                     </div>
+                    @endif
                 </div>
             </div>
 

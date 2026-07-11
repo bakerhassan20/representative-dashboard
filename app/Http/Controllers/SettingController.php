@@ -19,6 +19,8 @@ class SettingController extends Controller
         $settings->update([
             'site_name' => $request->site_name,
             'site_description' => $request->site_description,
+            'email' => $request->email,
+            'phone' => $request->phone,
             'primary_color' => $request->primary_color,
             'dark_mode' => $request->has('dark_mode'),
            

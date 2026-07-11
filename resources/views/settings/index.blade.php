@@ -49,6 +49,28 @@
                     </div>
                 </div>
 
+                <div class="form-group-modern mb-4">
+                    <label class="form-label-modern">البريد الإلكتروني</label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-envelope input-icon"></i>
+                        <input type="email" name="email"
+                               value="{{ $settings->email ?? '' }}"
+                               class="form-control form-control-modern"
+                               placeholder="البريد الإلكتروني">
+                    </div>
+                </div>
+
+                <div class="form-group-modern mb-4">
+                    <label class="form-label-modern">رقم الجوال</label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-telephone input-icon"></i>
+                        <input type="text" name="phone"
+                               value="{{ $settings->phone ?? '' }}"
+                               class="form-control form-control-modern"
+                               placeholder="رقم الجوال">
+                    </div>
+                </div>
+
                  <div class="form-group-modern mb-4">
                     <label class="form-label-modern"> الشعار</label>
                     <div class="input-icon-wrapper">
