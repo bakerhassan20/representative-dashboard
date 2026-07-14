@@ -2,7 +2,16 @@
 
 @section('content')
 
-<div class="container py-4">
+<div class="container py-4" id="page-wrapper">
+
+            <!-- Language Switcher -->
+            <div class="d-flex justify-content-end mb-3" id="lang-switcher">
+                <div class="btn-group shadow-sm" role="group">
+                    <button type="button" class="btn btn-sm btn-outline-primary lang-btn active" data-lang="ar">عربي</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary lang-btn" data-lang="en">EN</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary lang-btn" data-lang="ur">اردو</button>
+                </div>
+            </div>
 
             <!-- Logo & Brand Header -->
             <div class="login-logo text-center mb-5">
@@ -39,7 +48,7 @@
             <div class="card shadow border-0 overflow-hidden">
                 <div class="card-header bg-gradient bg-primary py-3 text-white d-flex align-items-center justify-content-between">
                     <h5 class="mb-0 fw-bold">
-                        <i class="bi bi-journal-check me-2"></i> تقرير المندوب اليومي
+                        <i class="bi bi-journal-check me-2"></i> <span data-t="title">تقرير المندوب اليومي</span>
                     </h5>
                     <span class="badge bg-white text-primary fw-semibold px-3 py-2 rounded-pill">
                         {{ now()->translatedFormat('l, d F Y') }}
@@ -74,14 +83,14 @@
                         <!-- Row 1: Client Identifiers -->
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold text-secondary">رقم معرف المندوب</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_id">رقم معرف المندوب</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0"><i class="bi bi-person-badge text-primary"></i></span>
                                     <input
                                         type="text"
                                         class="form-control bg-light @error('id_number') is-invalid @enderror"
                                         name="id_number"
-                                        placeholder="مثال: 12345"
+                                        placeholder="مثال: 12345" data-tp="ph_id"
                                         value="{{ old('id_number') }}"
                                         required>
                                     @error('id_number')
@@ -97,14 +106,14 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold text-secondary">رقم الجوال</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_phone">رقم الجوال</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0"><i class="bi bi-phone text-primary"></i></span>
                                     <input
                                         type="text"
                                         class="form-control bg-light @error('phone') is-invalid @enderror"
                                         name="phone"
-                                        placeholder="مثال: 05xxxxxxx"
+                                        placeholder="مثال: 05xxxxxxx" data-tp="ph_phone"
                                         value="{{ old('phone') }}"
                                         required>
                                     @error('phone')
@@ -117,7 +126,7 @@
                         <!-- Row 2: Date and Vehicle -->
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold text-secondary">تاريخ التقرير</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_date">تاريخ التقرير</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0"><i class="bi bi-calendar3 text-primary"></i></span>
                                     <input
@@ -131,17 +140,17 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-text small text-muted">يُسمح بتقرير واحد فقط لكل يوم (إلا إذا تم تمكين إعادة الإرسال من الإدارة).</div>
+                                <div class="form-text small text-muted" data-t="hint_date">يُسمح بتقرير واحد فقط لكل يوم (إلا إذا تم تمكين إعادة الإرسال من الإدارة).</div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold text-secondary">نوع المركبة</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_vehicle">نوع المركبة</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0"><i class="bi bi-truck text-primary"></i></span>
                                     <select class="form-select bg-light @error('vehicle_type') is-invalid @enderror" name="vehicle_type" required>
-                                        <option value="">اختر نوع المركبة...</option>
-                                        <option value="سيارة" {{ old('vehicle_type') === 'سيارة' ? 'selected' : '' }}>سيارة</option>
-                                        <option value="دباب" {{ old('vehicle_type') === 'دباب' ? 'selected' : '' }}>دباب</option>
+                                        <option value="" data-t="opt_vehicle_default">اختر نوع المركبة...</option>
+                                        <option value="سيارة" {{ old('vehicle_type') === 'سيارة' ? 'selected' : '' }} data-t="opt_car">سيارة</option>
+                                        <option value="دباب" {{ old('vehicle_type') === 'دباب' ? 'selected' : '' }} data-t="opt_moto">دباب</option>
                                     </select>
                                     @error('vehicle_type')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -154,11 +163,11 @@
                         <hr class="my-4 text-muted opacity-25">
 
                         <!-- Section: Financials & Hours -->
-                        <h6 class="fw-bold mb-3 text-primary"><i class="bi bi-cash-coin me-1"></i> البيانات المالية وساعات العمل</h6>
+                        <h6 class="fw-bold mb-3 text-primary"><i class="bi bi-cash-coin me-1"></i> <span data-t="section_finance">البيانات المالية وساعات العمل</span></h6>
 
                         <div class="row g-4 mb-4">
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">المبالغ المكتسبة</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_earned">المبالغ المكتسبة</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
@@ -176,7 +185,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">عدد الطلبات المكتملة</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_completed">عدد الطلبات المكتملة</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
@@ -186,7 +195,7 @@
                                         placeholder="0"
                                         value="{{ old('completed_orders_count', '0') }}"
                                         required>
-                                    <span class="input-group-text bg-light border-start-0">طلب</span>
+                                    <span class="input-group-text bg-light border-start-0" data-t="unit_order">طلب</span>
                                     @error('completed_orders_count')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -194,7 +203,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">عدد طلبات الرفض</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_rejected">عدد طلبات الرفض</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
@@ -212,7 +221,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label fw-semibold text-secondary">ساعات العمل</label>
+                                <label class="form-label fw-semibold text-secondary" data-t="label_hours">ساعات العمل</label>
                                 <div class="input-group">
                                     <input
                                         type="number"
@@ -235,7 +244,7 @@
 
                         <!-- Section: Upload & Notes -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold text-secondary">كشف الدفعات (صورة الكشف)</label>
+                            <label class="form-label fw-semibold text-secondary" data-t="label_image">كشف الدفعات (صورة الكشف)</label>
                             <div class="border border-2 border-dashed rounded-3 p-4 text-center bg-light position-relative hover-dragable @error('payment_image') border-danger @enderror" id="dropzone">
                                 <input
                                     type="file"
@@ -246,8 +255,8 @@
                                     required>
                                 <div class="py-2" id="upload-prompt">
                                     <i class="bi bi-cloud-arrow-up text-primary fs-1"></i>
-                                    <p class="mb-1 mt-2 fw-semibold">اسحب وأسقط صورة الكشف هنا أو انقر للاختيار</p>
-                                    <p class="text-secondary small mb-0">تنسيق الصور المدعوم: JPEG, PNG, JPG (الحد الأقصى 5 ميجابايت)</p>
+                                    <p class="mb-1 mt-2 fw-semibold" data-t="upload_main">اسحب وأسقط صورة الكشف هنا أو انقر للاختيار</p>
+                                    <p class="text-secondary small mb-0" data-t="upload_hint">تنسيق الصور المدعوم: JPEG, PNG, JPG (الحد الأقصى 5 ميجابايت)</p>
                                 </div>
                                 <div class="d-none py-2" id="upload-preview">
                                     <div class="position-relative d-inline-block">
@@ -265,12 +274,12 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-semibold text-secondary">ملاحظات إضافية</label>
+                            <label class="form-label fw-semibold text-secondary" data-t="label_notes">ملاحظات إضافية</label>
                             <textarea
                                 class="form-control bg-light @error('notes') is-invalid @enderror"
                                 rows="3"
                                 name="notes"
-                                placeholder="أضف أي ملاحظات أو توضيحات أخرى هنا..."
+                                placeholder="أضف أي ملاحظات أو توضيحات أخرى هنا..." data-tp="ph_notes"
                                 >{{ old('notes') }}</textarea>
                             @error('notes')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -278,8 +287,8 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm hover-grow">
-                            <i class="bi bi-send-fill me-2"></i> إرسال التقرير اليومي
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm hover-grow" id="submit-btn">
+                            <i class="bi bi-send-fill me-2"></i> <span data-t="btn_submit">إرسال التقرير اليومي</span>
                         </button>
 
                     </form>
@@ -291,6 +300,117 @@
 </div>
 
 @push('scripts')
+<script>
+// ===== Language Switcher =====
+const translations = {
+    ar: {
+        dir: 'rtl',
+        title: 'تقرير المندوب اليومي',
+        label_id: 'رقم معرف المندوب',
+        ph_id: 'مثال: 12345',
+        label_phone: 'رقم الجوال',
+        ph_phone: 'مثال: 05xxxxxxx',
+        label_date: 'تاريخ التقرير',
+        hint_date: 'يُسمح بتقرير واحد فقط لكل يوم (إلا إذا تم تمكين إعادة الإرسال من الإدارة).',
+        label_vehicle: 'نوع المركبة',
+        opt_vehicle_default: 'اختر نوع المركبة...',
+        opt_car: 'سيارة',
+        opt_moto: 'دباب',
+        section_finance: 'البيانات المالية وساعات العمل',
+        label_earned: 'المبالغ المكتسبة',
+        label_completed: 'عدد الطلبات المكتملة',
+        unit_order: 'طلب',
+        label_rejected: 'عدد طلبات الرفض',
+        label_hours: 'ساعات العمل',
+        label_image: 'كشف الدفعات (صورة الكشف)',
+        upload_main: 'اسحب وأسقط صورة الكشف هنا أو انقر للاختيار',
+        upload_hint: 'تنسيق الصور المدعوم: JPEG, PNG, JPG (الحد الأقصى 5 ميجابايت)',
+        label_notes: 'ملاحظات إضافية',
+        ph_notes: 'أضف أي ملاحظات أو توضيحات أخرى هنا...',
+        btn_submit: 'إرسال التقرير اليومي',
+    },
+    en: {
+        dir: 'ltr',
+        title: 'Daily Representative Report',
+        label_id: 'Representative ID Number',
+        ph_id: 'e.g: 12345',
+        label_phone: 'Mobile Number',
+        ph_phone: 'e.g: 05xxxxxxx',
+        label_date: 'Report Date',
+        hint_date: 'Only one report is allowed per day (unless re-submission is enabled by admin).',
+        label_vehicle: 'Vehicle Type',
+        opt_vehicle_default: 'Select vehicle type...',
+        opt_car: 'Car',
+        opt_moto: 'Motorcycle',
+        section_finance: 'Financial Data & Work Hours',
+        label_earned: 'Earned Amount',
+        label_completed: 'Completed Orders Count',
+        unit_order: 'Order',
+        label_rejected: 'Rejected Orders Count',
+        label_hours: 'Work Hours',
+        label_image: 'Payment Statement (Image)',
+        upload_main: 'Drag & drop the statement image here or click to select',
+        upload_hint: 'Supported formats: JPEG, PNG, JPG (Max 5 MB)',
+        label_notes: 'Additional Notes',
+        ph_notes: 'Add any notes or clarifications here...',
+        btn_submit: 'Submit Daily Report',
+    },
+    ur: {
+        dir: 'rtl',
+        title: 'روزانہ نمائندہ رپورٹ',
+        label_id: 'نمائندہ شناختی نمبر',
+        ph_id: 'مثال: 12345',
+        label_phone: 'موبائل نمبر',
+        ph_phone: 'مثال: 05xxxxxxx',
+        label_date: 'رپورٹ کی تاریخ',
+        hint_date: 'فی دن صرف ایک رپورٹ کی اجازت ہے (جب تک ایڈمن دوبارہ جمع کرانے کی اجازت نہ دے)۔',
+        label_vehicle: 'گاڑی کی قسم',
+        opt_vehicle_default: 'گاڑی کی قسم منتخب کریں...',
+        opt_car: 'کار',
+        opt_moto: 'موٹر سائیکل',
+        section_finance: 'مالیاتی ڈیٹا اور کام کے اوقات',
+        label_earned: 'حاصل شدہ رقم',
+        label_completed: 'مکمل آرڈرز کی تعداد',
+        unit_order: 'آرڈر',
+        label_rejected: 'مسترد آرڈرز کی تعداد',
+        label_hours: 'کام کے گھنٹے',
+        label_image: 'ادائیگی کا بیان (تصویر)',
+        upload_main: 'یہاں تصویر گھسیٹیں یا کلک کریں',
+        upload_hint: 'معاون فارمیٹ: JPEG, PNG, JPG (زیادہ سے زیادہ 5 MB)',
+        label_notes: 'اضافی نوٹس',
+        ph_notes: 'یہاں کوئی نوٹ یا وضاحت شامل کریں...',
+        btn_submit: 'روزانہ رپورٹ جمع کریں',
+    }
+};
+
+let currentLang = localStorage.getItem('rep_lang') || 'ar';
+
+function applyLang(lang) {
+    const t = translations[lang];
+    document.documentElement.setAttribute('dir', t.dir);
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-t]').forEach(el => {
+        const key = el.getAttribute('data-t');
+        if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-tp]').forEach(el => {
+        const key = el.getAttribute('data-tp');
+        if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    localStorage.setItem('rep_lang', lang);
+    currentLang = lang;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function() { applyLang(this.getAttribute('data-lang')); });
+    });
+    applyLang(currentLang);
+});
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const fileInput = document.getElementById('payment_image');
